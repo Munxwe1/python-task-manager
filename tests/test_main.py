@@ -3,6 +3,8 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
+import pytest  # noqa: E402
+
 import main  # noqa: E402
 
 
@@ -28,3 +30,14 @@ def test_complete_task():
     assert main.complete_task(1) is True
     assert main.list_tasks()[0]["done"] is True
     assert main.complete_task(99) is False
+
+
+def test_delete_task():
+    main.add_task("Удалить меня")
+    assert main.delete_task(1) is True
+    assert main.list_tasks() == []
+
+
+def test_empty_title_is_rejected():
+    with pytest.raises(ValueError):
+        main.add_task("   ")

@@ -5,8 +5,21 @@ APP_VERSION = "1.0"
 tasks = []
 
 
+def validate_title(title):
+    """Проверяет название задачи и возвращает его без лишних пробелов."""
+    if not isinstance(title, str):
+        raise ValueError("Название задачи должно быть строкой")
+    title = title.strip()
+    if not title:
+        raise ValueError("Название задачи не может быть пустым")
+    if len(title) > 100:
+        raise ValueError("Название задачи длиннее 100 символов")
+    return title
+
+
 def add_task(title):
     """Добавляет новую задачу и возвращает её."""
+    title = validate_title(title)
     new_id = max((t["id"] for t in tasks), default=0) + 1
     task = {"id": new_id, "title": title, "done": False}
     tasks.append(task)
@@ -49,6 +62,10 @@ def main():
     add_task("Отправить отчёт преподавателю")
     complete_task(1)
     delete_task(3)
+    try:
+        add_task("   ")
+    except ValueError as error:
+        print(f"Ошибка: {error}")
     for task in list_tasks():
         print(format_task(task))
 
