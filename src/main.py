@@ -49,6 +49,12 @@ def delete_task(task_id):
     return False
 
 
+def search_tasks(text):
+    """Ищет задачи, в названии которых есть указанный текст."""
+    text = text.lower()
+    return [t for t in tasks if text in t["title"].lower()]
+
+
 def format_task(task):
     """Возвращает строку для вывода задачи на экран."""
     mark = "x" if task["done"] else " "
@@ -67,6 +73,9 @@ def main():
     except ValueError as error:
         print(f"Ошибка: {error}")
     for task in list_tasks():
+        print(format_task(task))
+    print("Поиск по слову 'git':")
+    for task in search_tasks("git"):
         print(format_task(task))
 
 
