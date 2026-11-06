@@ -41,3 +41,19 @@ def test_delete_task():
 def test_empty_title_is_rejected():
     with pytest.raises(ValueError):
         main.add_task("   ")
+
+
+def test_search_tasks():
+    main.add_task("Изучить git merge")
+    main.add_task("Купить молоко")
+    found = main.search_tasks("GIT")
+    assert len(found) == 1
+    assert found[0]["title"] == "Изучить git merge"
+
+
+def test_filter_tasks():
+    main.add_task("Первая")
+    main.add_task("Вторая")
+    main.complete_task(1)
+    assert len(main.filter_tasks(True)) == 1
+    assert len(main.filter_tasks(False)) == 1
