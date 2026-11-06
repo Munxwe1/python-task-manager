@@ -55,6 +55,11 @@ def search_tasks(text):
     return [t for t in tasks if text in t["title"].lower()]
 
 
+def filter_tasks(done):
+    """Возвращает выполненные (done=True) или невыполненные задачи."""
+    return [t for t in tasks if t["done"] == done]
+
+
 def format_task(task):
     """Возвращает строку для вывода задачи на экран."""
     mark = "x" if task["done"] else " "
@@ -76,6 +81,9 @@ def main():
         print(format_task(task))
     print("Поиск по слову 'git':")
     for task in search_tasks("git"):
+        print(format_task(task))
+    print("Невыполненные задачи:")
+    for task in filter_tasks(False):
         print(format_task(task))
 
 
