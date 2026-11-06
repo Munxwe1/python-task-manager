@@ -27,6 +27,15 @@ def complete_task(task_id):
     return False
 
 
+def delete_task(task_id):
+    """Удаляет задачу по номеру. Возвращает True, если задача была удалена."""
+    for task in tasks:
+        if task["id"] == task_id:
+            tasks.remove(task)
+            return True
+    return False
+
+
 def format_task(task):
     """Возвращает строку для вывода задачи на экран."""
     mark = "x" if task["done"] else " "
@@ -39,6 +48,7 @@ def main():
     add_task("Сделать лабораторную работу №3")
     add_task("Отправить отчёт преподавателю")
     complete_task(1)
+    delete_task(3)
     for task in list_tasks():
         print(format_task(task))
 
