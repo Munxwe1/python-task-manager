@@ -33,14 +33,50 @@ def format_task(task):
     return f"[{mark}] {task['id']}. {task['title']}"
 
 
-def main():
-    print(f"Менеджер задач v{APP_VERSION}")
-    add_task("Изучить git branch")
-    add_task("Сделать лабораторную работу №3")
-    add_task("Отправить отчёт преподавателю")
-    complete_task(1)
+MENU = """
+===== МЕНЕДЖЕР ЗАДАЧ =====
+1 - Добавить задачу
+2 - Показать задачи
+3 - Отметить задачу выполненной
+0 - Выход
+"""
+
+
+def show_tasks():
+    """Красиво выводит список задач."""
+    if not tasks:
+        print("Список задач пуст.")
+        return
+    print("-" * 30)
     for task in list_tasks():
         print(format_task(task))
+    print("-" * 30)
+    done = sum(1 for t in tasks if t["done"])
+    print(f"Выполнено: {done} из {len(tasks)}")
+
+
+def main():
+    print(f"Менеджер задач v{APP_VERSION}")
+    while True:
+        print(MENU)
+        choice = input("Выберите пункт меню: ").strip()
+        if choice == "1":
+            title = input("Название задачи: ")
+            task = add_task(title)
+            print(f"Добавлена задача №{task['id']}")
+        elif choice == "2":
+            show_tasks()
+        elif choice == "3":
+            task_id = int(input("Номер задачи: "))
+            if complete_task(task_id):
+                print("Задача отмечена выполненной.")
+            else:
+                print("Задача не найдена.")
+        elif choice == "0":
+            print("До свидания!")
+            break
+        else:
+            print("Неизвестный пункт меню.")
 
 
 if __name__ == "__main__":
