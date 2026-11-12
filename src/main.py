@@ -1,6 +1,6 @@
 """Консольный менеджер задач."""
 
-APP_VERSION = "1.1"
+APP_VERSION = "1.2"
 
 tasks = []
 
@@ -60,6 +60,14 @@ def filter_tasks(done):
     return [t for t in tasks if t["done"] == done]
 
 
+def get_stats():
+    """Возвращает статистику: всего задач, выполнено, осталось и процент выполнения."""
+    total = len(tasks)
+    done = len([t for t in tasks if t["done"]])
+    percent = round(done * 100 / total) if total else 0
+    return {"total": total, "done": done, "left": total - done, "percent": percent}
+
+
 def format_task(task):
     """Возвращает строку для вывода задачи на экран."""
     mark = "x" if task["done"] else " "
@@ -85,6 +93,9 @@ def main():
     print("Невыполненные задачи:")
     for task in filter_tasks(False):
         print(format_task(task))
+    stats = get_stats()
+    print(f"Статистика: всего {stats['total']}, выполнено {stats['done']}, "
+          f"осталось {stats['left']} ({stats['percent']}% выполнено)")
 
 
 if __name__ == "__main__":

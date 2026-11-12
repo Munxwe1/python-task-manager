@@ -57,3 +57,17 @@ def test_filter_tasks():
     main.complete_task(1)
     assert len(main.filter_tasks(True)) == 1
     assert len(main.filter_tasks(False)) == 1
+
+
+def test_get_stats():
+    main.add_task("Первая")
+    main.add_task("Вторая")
+    main.add_task("Третья")
+    main.add_task("Четвёртая")
+    main.complete_task(1)
+    stats = main.get_stats()
+    assert stats == {"total": 4, "done": 1, "left": 3, "percent": 25}
+
+
+def test_get_stats_empty():
+    assert main.get_stats() == {"total": 0, "done": 0, "left": 0, "percent": 0}
