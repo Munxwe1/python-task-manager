@@ -67,7 +67,7 @@ def format_task(task):
 
 
 def main():
-    print(f"Менеджер задач v{APP_VERSION}")
+    print(f"Консольный менеджер задач v{APP_VERSION}")
     add_task("Изучить git branch")
     add_task("Сделать лабораторную работу №3")
     add_task("Отправить отчёт преподавателю")
