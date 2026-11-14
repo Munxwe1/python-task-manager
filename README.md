@@ -77,7 +77,7 @@ pip install -r requirements.txt
 python src/main.py
 ```
 
-Запуск тестов:
+### Запуск тестов
 
 ```bash
 python -m pytest
@@ -85,7 +85,7 @@ python -m pytest
 
 ## Использование
 
-Пример работы с функциями программы в интерактивном режиме Python:
+### Пример в интерактивном режиме Python
 
 ```python
 >>> import sys; sys.path.insert(0, "src")
@@ -98,7 +98,7 @@ True
 {'total': 1, 'done': 1, 'left': 0, 'percent': 100}
 ```
 
-Пример вывода `python src/main.py`:
+### Пример вывода программы
 
 ```text
 Python Task Manager — консольный менеджер задач v1.2
